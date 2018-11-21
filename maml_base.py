@@ -33,7 +33,7 @@ def build_meta_model(n_inputs, n_outputs, hyperparams, model, backproped_model, 
     alpha = hyperparams['alpha'] # task learning rate
     beta = hyperparams['beta'] # meta learning rate
     clip_grads = hyperparams['clip_grads'] # boolean to indicate whether or not to clip gradients
-    first_order = hyperparams['first_order']
+    first_order = hyperparams['first_order'] # if true, do not use hessian (faster but less accurate)
     assert N > 0
     assert meta_gradient_steps <= max_gradient_steps
     meta_model = {}

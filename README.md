@@ -26,6 +26,10 @@ python sinusoid_regression.py
 
 ![Alt text](images/sinusoid_2_grad_steps.jpg?raw=true "MAML with 2 Gradient Steps Meta Training")
 
+### Sinusoid First-Order MAML with 1 Gradient Steps Meta Training
+
+![Alt text](images/sinusoid_fomaml_1_grad_steps.jpg?raw=true "MAML with 2 Gradient Steps Meta Training")
+
 ## References
 
 Original Paper: [MAML](https://arxiv.org/pdf/1703.03400.pdf)
