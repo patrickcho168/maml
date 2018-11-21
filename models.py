@@ -4,11 +4,12 @@ def FCN_generator(hidden_units, activations, n_outputs):
     hidden_units.append(n_outputs)
     activations.append(tf.identity)
     
-    def FCN(x):
-        h = x
-        for i, (units, activation) in enumerate(zip(hidden_units, activations)):
-            with tf.variable_scope('layer{}'.format(i)):
-                h = tf.layers.dense(h, units, activation=activation)
+    def FCN(x, reuse=False):
+        with tf.variable_scope('FCN', reuse=reuse): 
+            h = x
+            for i, (units, activation) in enumerate(zip(hidden_units, activations)):
+                with tf.variable_scope('layer{}'.format(i)):
+                    h = tf.layers.dense(h, units, activation=activation)
         return h
     
     def backproped_FCN(x, params):
