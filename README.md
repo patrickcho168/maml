@@ -28,20 +28,4 @@ python sinusoid_regression.py
 
 ## References
 
-```
-@article{DBLP:journals/corr/FinnAL17,
-  author    = {Chelsea Finn and
-               Pieter Abbeel and
-               Sergey Levine},
-  title     = {Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks},
-  journal   = {CoRR},
-  volume    = {abs/1703.03400},
-  year      = {2017},
-  url       = {http://arxiv.org/abs/1703.03400},
-  archivePrefix = {arXiv},
-  eprint    = {1703.03400},
-  timestamp = {Mon, 13 Aug 2018 16:47:43 +0200},
-  biburl    = {https://dblp.org/rec/bib/journals/corr/FinnAL17},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
-}
-```
+Original Paper: [MAML](https://arxiv.org/pdf/1703.03400.pdf)
