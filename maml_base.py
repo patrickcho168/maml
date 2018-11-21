@@ -207,7 +207,7 @@ def solve_maml(n_inputs, n_outputs, hyperparams, model, backproped_model, loss_f
                                                   meta_model['val_y_hats'][1],
                                                   meta_model['val_y_hats'][-1]], feed_dict=feed_dict)
             if test_callback is not None:
-                test_callback(itr, test_task, original_y_hat, one_step_y_hat, final_y_hat)
+                test_callback(itr, train_X, train_Y, test_task, original_y_hat, one_step_y_hat, final_y_hat)
             total_test_original_loss += original_loss
             total_test_task_loss += task_loss
             all_grad_step_losses.append(grad_step_losses)

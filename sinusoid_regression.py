@@ -119,11 +119,12 @@ def solve_sinusoid(hyperparams):
     model, backproped_model = FCN_generator(hidden_units, activations, n_outputs)
     loss_fn = MSE_generator()
 
-    def test_callback(itr, test_task, original_y_hat, one_step_y_hat, final_y_hat):
-        test_task.plot(label='ground truth', color='C0')
-        test_task.plot_test_results(original_y_hat, label='pre-update', color='C1')
-        test_task.plot_test_results(one_step_y_hat, label='1 grad step', color='C2')
-        test_task.plot_test_results(final_y_hat, label='{} grad steps'.format(hyperparams['max_gradient_steps']), color='C3')
+    def test_callback(itr, train_X, train_Y, test_task, original_y_hat, one_step_y_hat, final_y_hat):
+        test_task.plot(label='ground truth', color='C3')
+        test_task.plot_test_results(original_y_hat, label='pre-update', color='C0')
+        test_task.plot_test_results(one_step_y_hat, label='1 grad step', color='C1')
+        test_task.plot_test_results(final_y_hat, label='{} grad steps'.format(hyperparams['max_gradient_steps']), color='C2')
+        plt.scatter(train_X, train_Y, label='used for grad', color='C4', marker='^')
         plt.legend()
         plt.savefig(os.path.join(directory, 'plots', '{}.jpg'.format(itr)))
         plt.clf()
