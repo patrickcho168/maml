@@ -26,7 +26,7 @@ class SinusoidTask(Task):
         self.phase = phase
         self.x_min = x_min
         self.x_max = x_max
-        self.num_examples = 100
+        self.num_examples = 50
 
     def get_ground_truth(self, x):
         assert x <= self.x_max
@@ -105,6 +105,7 @@ def solve_sinusoid(hyperparams):
     x_min = -5
     x_max = 5
 
+    # Setting up directories and Tensorboard
     now = datetime.datetime.now(dateutil.tz.tzlocal())
     timestamp = now.strftime('%Y_%m_%d_%H_%M_%S')
     directory = os.path.join('run', 'sinusoid', 'sinusoid_{}'.format(timestamp))
@@ -112,7 +113,6 @@ def solve_sinusoid(hyperparams):
     os.makedirs(os.path.join(directory, 'plots'))
     with open(os.path.join(directory, 'hyperparams.pk'), 'wb') as f:
         pk.dump(hyperparams, f)
-
     tensorboard_logger = TensorboardXLogger(os.path.join(directory, 'tensorboard_log'))
 
     dataset = SinusoidDataset(amplitude_min, amplitude_max, phase_min, phase_max, x_min, x_max)
@@ -147,6 +147,7 @@ if __name__ == '__main__':
         'test_itrs': 100,
         'clip_grads': True,
         'early_stopping': 25,
+        'first_order': False,
     }
     results = []
     for meta_gradient_steps in range(5):

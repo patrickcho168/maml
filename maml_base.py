@@ -33,6 +33,7 @@ def build_meta_model(n_inputs, n_outputs, hyperparams, model, backproped_model, 
     alpha = hyperparams['alpha'] # task learning rate
     beta = hyperparams['beta'] # meta learning rate
     clip_grads = hyperparams['clip_grads'] # boolean to indicate whether or not to clip gradients
+    first_order = hyperparams['first_order']
     assert N > 0
     assert meta_gradient_steps <= max_gradient_steps
     meta_model = {}
@@ -99,6 +100,8 @@ def build_meta_model(n_inputs, n_outputs, hyperparams, model, backproped_model, 
             for j in range(max_gradient_steps):
                 with tf.variable_scope('model_{}_gradient_iteration{}'.format(i, j)):
                     grads = tf.gradients(train_loss, params)
+                    if first_order:
+                        grads = [tf.stop_gradient(grad) for grad in grads]
                     params = [param - alpha*grad for (param, grad) in zip(params, grads)]
                     new_train_y_hat = backproped_model(x_train_phs[i], params)
                     train_loss = loss_fn(new_train_y_hat, y_train_phs[i])
@@ -127,8 +130,11 @@ def build_meta_model(n_inputs, n_outputs, hyperparams, model, backproped_model, 
         gvs = [(tf.clip_by_value(grad, -10, 10), var) for grad, var in gvs]
         train_op = optimizer.apply_gradients(gvs)
     else:
-        train_op = optimizer.minimize(meta_loss)
+        gvs = optimizer.compute_gradients(meta_loss)
+        train_op = optimizer.apply_gradients(gvs)
+        # train_op = optimizer.minimize(meta_loss)
 
+    meta_model['gvs'] = gvs
     meta_model['meta_loss'] = meta_loss
     meta_model['inner_loss'] = inner_loss
     meta_model['train_op'] = train_op
