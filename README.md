@@ -10,6 +10,10 @@ python sinusoid_regression.py
 
 ## Results
 
+### Sinusoid Results
+
+![Alt text](images/sinusoid_results.jpg?raw=true "Results")
+
 ### Sinusoid Pretrained
 
 ![Alt text](images/sinusoid_0_grad_steps.jpg?raw=true "Pretrained")
